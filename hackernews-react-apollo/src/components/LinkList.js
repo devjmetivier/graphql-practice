@@ -16,6 +16,50 @@ class LinkList extends Component {
         store.writeQuery({ query: ALL_LINKS_QUERY, data });
     };
 
+    _subscribeToNewLinks = () => {
+        this.props.allLinksQuery.subscribeToMore({
+            document: gql`
+                subscription {
+                    Link(filter: {
+                        mutation_in: [CREATED]
+                    }) {
+                        node {
+                            id
+                            url
+                            description
+                            createdAt
+                            postedBy {
+                                id
+                                name
+                            }
+                            votes {
+                                id
+                                user {
+                                    id
+                                }
+                            }
+                        }
+                    }
+                }
+            `,
+            updateQuery: (previous, { subscriptionData }) => {
+                const newAllLinks = [
+                    subscriptionData.link.node,
+                    ...previous.allLinks
+                ];
+                const result = {
+                    ...previous,
+                    allLinks: newAllLinks
+                };
+                return result;
+        }
+        });
+    };
+
+    componentDidMount() {
+        this._subscribeToNewLinks();
+    }
+
     render () {
         if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
             return <div>Loading</div>
