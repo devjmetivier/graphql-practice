@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+input {
+  max-width: 500px;
+}
+
+.gray {
+  color: #828282;
+}
+
+.orange {
+  background: #ff6600;
+}
+
+.background-gray {
+  background: rgb(246,246,239);
+}
+
+.fill {
+  font-size: 11px;
+}
+
+.w85 {
+  width: 85%;
+}
+
+.button {
+  padding: 2px 6px 3px;
+  max-width: 250px;
+  font-family: monospace;
+  font-size: 10pt;
+  text-align: center;
+  border: 2px outset buttonface;
+  background: buttonface;
+  color: black;
+  cursor: pointer;
+}
